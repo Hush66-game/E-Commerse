@@ -1,9 +1,14 @@
+import React from 'react'
+import Navbar from '../components/ui/navbar'
+import { Box } from '@chakra-ui/react'
+import BannerSlider from '../components/BannerSlider'
+
 const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome to the Home Page</h1>
-    </div>
-  );
-};
+        <Box>
+          <BannerSlider/>
+        </Box>
+  )
+}
 
-export default HomePage;
+export default HomePage
