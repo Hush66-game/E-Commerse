@@ -3,6 +3,8 @@ import { Box } from "@chakra-ui/react";
 import Navbar from "./components/ui/navbar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import CreatePage from "./pages/CreatePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+
 
 function App() {
   return (
@@ -11,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
-
+        <Route path="/login" element={<LoginPage/>}/>
       </Routes>
     </Box>
   );
