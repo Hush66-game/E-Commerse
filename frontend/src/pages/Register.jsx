@@ -7,7 +7,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -32,27 +32,14 @@ const Register = () => {
       } else {
         alert (data.message || 'Registration successful!');
       }
-    } catch {
+    } catch (err) {
       console.error(err);
       alert('Something went wrong.');
     }
   };
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"
-      bg="gray.100"
-    >
-      <Box
-        bg="gray.100"
-        p={8}
-        borderRadius="lg"
-        boxShadow="md"
-        width="100%"
-        maxW="sm"
-      >
+ <Box display="flex" justifyContent="center" alignItems="center" height="100vh" bg="gray.100">
+      <Box bg="gray.100" p={8} borderRadius="lg" boxShadow="md" width="100%" maxW="sm">
         <Box w={"full"} p={6} rounded={"lg"} color={"black"}>
           <form onSubmit={handleRegister}>
             <VStack spacing={4}>
@@ -75,18 +62,18 @@ const Register = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-                  <Input
+              <Input
                 placeholder="Confirm Password"
-                 type="password"
-                name="ConfirmPassword"
+                type="password"
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button colorScheme="teal" width="100%">
-                Log In
-              </Button>
-              <Button as={Link} to="/register" colorScheme="teal" width="100%">
+              <Button type="submit" colorScheme="teal" width="100%">
                 Register
+              </Button>
+              <Button as={Link} to="/login" colorScheme="teal" width="100%">
+                Already have an account? Log In
               </Button>
             </VStack>
           </form>

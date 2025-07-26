@@ -23,7 +23,7 @@ const LoginPage = () => {
         password,
       });
       localStorage.setItem("token", res.data.token);
-      navigate("/");
+      navigate("/homepage");
     } catch {
       alert("Login failed");
     }
@@ -62,7 +62,7 @@ const LoginPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button colorScheme="teal" width="100%">
+                <Button type="submit" colorScheme="teal" width="100%">
                   Log In
                 </Button>
                 <Button
