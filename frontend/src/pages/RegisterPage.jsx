@@ -1,47 +1,46 @@
 import React from "react";
 import { Box, VStack, Input, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { Route, useNavigate, Routes, Link } from "react-router-dom";
-const Register = () => {
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert ("Password doesn't match!");
-      return;
-    }
-
-    try{
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email, password, username}),
+    try {
+      const res = await axios.post("http://localhost:5000/api/users/register", {
+        name,
+        email,
+        password,
       });
-      const data = await res.json();
-
-      if (res.ok) {
-        alert('Registration successful!');
-      } else {
-        alert (data.message || 'Registration successful!');
-      }
+      alert("Registered: " + res.data.name);
     } catch (err) {
-      console.error(err);
-      alert('Something went wrong.');
+      alert(err.response?.data?.message || "Registration failed");
     }
   };
   return (
- <Box display="flex" justifyContent="center" alignItems="center" height="100vh" bg="gray.100">
-      <Box bg="gray.100" p={8} borderRadius="lg" boxShadow="md" width="100%" maxW="sm">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+      bg="gray.100"
+    >
+      <Box
+        bg="gray.100"
+        p={8}
+        borderRadius="lg"
+        boxShadow="md"
+        width="100%"
+        maxW="sm"
+      >
         <Box w={"full"} p={6} rounded={"lg"} color={"black"}>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={register}>
             <VStack spacing={4}>
               <Input
                 placeholder="Email"
@@ -53,7 +52,7 @@ const Register = () => {
                 placeholder="Username"
                 name="username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
               <Input
                 placeholder="Password"
@@ -81,6 +80,4 @@ const Register = () => {
       </Box>
     </Box>
   );
-};
-
-export default Register;
+}

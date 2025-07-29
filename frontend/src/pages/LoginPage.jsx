@@ -16,16 +16,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("http://localhost:5000/api/users/login", {
         email,
         password,
       });
-      localStorage.setItem("token", res.data.token);
-      navigate("/homepage");
-    } catch {
-      alert("Login failed");
+      alert("Logged in: " + res.data.name);
+    } catch(err) {
+      alert(err.responsse?.data?.message || "Login failed");
     }
   };
 
